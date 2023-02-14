@@ -1,5 +1,4 @@
 [
-	{ "keys": ["Ctrl+R"], "command": "reload_plugins" },
 	{ "keys": ["Ctrl+Shift+D"], "command": "add_folder" },
 	{ "keys": ["Ctrl+Shift+A"], "command": "add_file" }
 ]
