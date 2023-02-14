@@ -20,12 +20,7 @@ class AddFolder(DirectoryPaneCommand):
 				show_status_message(f'Added new folder "{name}".', 2)
 			except NotImplementedError :
 				show_alert("A file with this name already exists!")
-			# Use normalize(...) instead of resolve(...) to avoid the following
-			# problem: Say c/ is a symlink to a/b/. We're inside c/ and create
-			# d. Then # resolve(c/d) would give a/b/d and the relative path
-			# further down # would be ../a/b/d. We could not place the cursor at
-			# that. If on # the other hand, we use normalize(...), then we
-			# compute the relpath from c -> c/d, which does work.
+			# select created folder
 			effective_url = normalize(dir_url)
 			select = relpath(effective_url, base_url).split('/')[0]
 			if select != '..':
@@ -35,7 +30,7 @@ class AddFolder(DirectoryPaneCommand):
 					pass
 class AddFile(DirectoryPaneCommand):
 	aliases = (
-		'Add folder', 'New folder', 'Create folder', 'Add directory', 'New directory', 'Create directory'
+		'Add file', 'New file', 'Create file', 'Touch file', 'Touch'
 	)
 	def __call__(self):
 		name, ok = show_prompt("New file", "")
@@ -48,12 +43,7 @@ class AddFile(DirectoryPaneCommand):
 				show_status_message(f'Added new file "{name}".', 2)
 			except FileExistsError:
 				show_alert("A file with this name already exists!")
-			# Use normalize(...) instead of resolve(...) to avoid the following
-			# problem: Say c/ is a symlink to a/b/. We're inside c/ and create
-			# d. Then # resolve(c/d) would give a/b/d and the relative path
-			# further down # would be ../a/b/d. We could not place the cursor at
-			# that. If on # the other hand, we use normalize(...), then we
-			# compute the relpath from c -> c/d, which does work.
+			# select created file
 			effective_url = normalize(file_url)
 			select = relpath(effective_url, base_url).split('/')[0]
 			if select != '..':
